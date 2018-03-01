@@ -1,2 +1,2 @@
-# vcms
+# VCMS
 Veterinary Clinic Management System
