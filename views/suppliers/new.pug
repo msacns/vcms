@@ -1,0 +1,51 @@
+extends ../default
+
+block content
+  main.main
+        // Breadcrumb
+        ol.breadcrumb
+          li.breadcrumb-item Administração
+          li.breadcrumb-item Configurações
+          li.breadcrumb-item.active Fornecedores
+        .container-fluid
+          .animated.fadeIn
+            .row
+              .col-md-12
+                  .card
+                    .card-header
+                      i.fa.fa-edit
+                      |  Fornecedores
+                    .card-body                                              
+                      != messages()
+                      form.form-horizontal(action='/suppliers/save', method='post')
+                        .form-group
+                          label.form-control-label(for='suppliername') Fornecedor
+                          .controls
+                            .input-group
+                              input#description.form-control(name='description',size='16', type='text')
+                        .form-group
+                          label.form-control-label(for='countrynm') País
+                          .controls
+                            .input-group
+                              select#select.form-control-sm(name='country')
+                               option(value='') Selecione um País 
+                               each namecountry in countries
+                                - var ncountry = namecountry.name;
+                                option(value=ncountry) #{ncountry}                                                      
+                        .form-group
+                          label.form-control-label(for='contato') Contato
+                          .controls
+                            .input-group
+                              input#contact.form-control(name='contact',size='16', type='text')                            
+                        .form-group
+                          label.form-control-label(for='activedYN') Ativo?
+                          .controls
+                            .input-group
+                              select#select.form-control-sm(name='active')
+                                option(value='true') Sim
+                                option(value='false') Não          
+                        .form-actions
+                          button.btn.btn-sm.primary(type='submit') Salvar
+                          span
+                          a(href='/suppliers') 
+                           button.btn.btn-sm.secondary(type='button') Cancelar                                                                       

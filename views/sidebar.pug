@@ -1,0 +1,56 @@
+.sidebar
+      nav.sidebar-nav
+          ul.nav
+            li.nav-item
+              a.nav-link(href='/')
+                i.icon-speedometer
+                |  Dashboard 
+            li.nav-title
+              | Transações
+            li.nav-item.nav-dropdown
+              a.nav-link.nav-dropdown-toggle(href='#')
+                i.icon-map
+                |  Registro
+              ul.nav-dropdown-items
+                li.nav-item
+                  a.nav-link(href='/operations')
+                    i.icon-direction
+                    |  Operações                               
+            li.nav-item.nav-dropdown
+              a.nav-link.nav-dropdown-toggle(href='#')
+                i.icon-star
+                |  Relatórios
+              ul.nav-dropdown-items
+                li.nav-item
+                  a.nav-link(href='/report/operation')
+                    i.icon-plane
+                    |  por Operações  
+              ul.nav-dropdown-items
+                li.nav-item
+                  a.nav-link(href='/report/pivot')
+                    i.icon-graph
+                    |  Pivot Table                                             
+            li.divider
+            li.nav-title
+              | Administração
+            li.nav-item.nav-dropdown
+              a.nav-link.nav-dropdown-toggle(href='#')
+                i.icon-settings
+                |  Configurações
+              ul.nav-dropdown-items
+                li.nav-item
+                  a.nav-link(href='/users')
+                    i.icon-user
+                    |  Usuários  
+                li.nav-item
+                  a.nav-link(href='/customers')
+                    i.icon-people
+                    |  Clientes      
+                li.nav-item
+                  a.nav-link(href='/suppliers')
+                    i.icon-plane
+                    |  Fornecedores   
+                li.nav-item
+                  a.nav-link(href='/statuses')
+                    i.icon-energy
+                    |  Status                     

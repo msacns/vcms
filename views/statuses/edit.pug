@@ -1,0 +1,72 @@
+extends ../default
+
+block content
+  main.main
+        // Breadcrumb
+        ol.breadcrumb
+          li.breadcrumb-item Administração
+          li.breadcrumb-item Configurações
+          li.breadcrumb-item Status
+          li.breadcrumb-item.active Detalhes
+        .container-fluid
+          .animated.fadeIn
+            .row
+              .col-md-12
+                  .card
+                    .card-header
+                      i.fa.fa-edit
+                      |  Status - Detalhes
+                      - var docid       = stats.id;
+                      - var codfor      = stats.status;
+                      - var descfor     = stats.description;
+                      - var codpais     = stats.country;
+                      - var desccontato = stats.contact;
+                      - var ativo       = stats.active;
+                      - var dtcriacao   = stats.createdAt;
+                    .card-body   
+                      != messages()  
+                      form.form-horizontal(action='/statuses/update/' + docid, method='post')                         
+                        .form-group
+                          label.form-control-label(for='fullname') Código
+                          .controls
+                            .input-group
+                              input#status.form-control(name='status',size='16', type='text',  value=codfor, readonly=true)
+                        .form-group
+                          label.form-control-label(for='description') Customer
+                          .controls
+                            .input-group
+                              input#description.form-control(name='description',size='100', type='text',  value=descfor, readonly=false)                                                           
+                        //- .form-group
+                        //-   label.form-control-label(for='countrynm') País
+                        //-   .controls
+                        //-     .input-group
+                        //-       select#select.form-control-sm(name='country')
+                        //-        each namecountry in countries
+                        //-         - var ncountry = namecountry.name;
+                        //-         option(value=ncountry selected=stats.country==ncountry) #{ncountry}                         
+                        .form-group
+                          label.form-control-label(for='cnt') Contato
+                          .controls
+                            .input-group
+                              input#contact.form-control(name='contact',size='16', type='text',  value=desccontato, readonly=false)                         
+                        .form-group
+                          label.col-md-3.form-control-label(for='activedYN') Ativo?
+                          .controls
+                            .col-md-9
+                              select#active.form-control-sm(name='active', disabled=false)
+                                option(value='true', selected=ativo == true) Sim
+                                option(value='false', selected=ativo == false) Não
+                        .form-group
+                          label.form-control-label(for='createdAt') Criado em
+                          .controls
+                            .input-group
+                              input#createdAt.form-control(size='16', type='text', readonly=true, value=formatDate(dtcriacao))                                                                                                             
+                        .form-actions
+                          button.btn.btn-sm.btn-success(type='submit')
+                            i.fa.fa-edit
+                            |  Atualizar   
+                          span     
+                          a(href='/statuses/show/' + docid)                                           
+                            button.btn.btn-sm.btn-danger(type='button')
+                              i.fa.fa-ban
+                              |  Cancelar                               

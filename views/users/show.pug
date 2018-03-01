@@ -1,0 +1,95 @@
+extends ../default
+
+block content
+  main.main
+        // Breadcrumb
+        ol.breadcrumb
+          li.breadcrumb-item Administração
+          li.breadcrumb-item Configurações
+          li.breadcrumb-item Usuários
+          li.breadcrumb-item.active Detalhes
+        .container-fluid
+          .animated.fadeIn
+            .row
+              .col-md-12
+                  .card
+                    .card-header
+                      i.fa.fa-edit
+                      |  Usuário - Detalhes
+                    .card-body   
+                      != messages()  
+                      - var uuid = accounts.id;
+                      - var userid = accounts.userid;
+                      - var usernm = accounts.username;
+                      - var fullnm = accounts.fullname;
+                      - var uemail = accounts.email;
+                      - var utype  = accounts.role;
+                      - var pwd     = accounts.password;
+                      - var ugender = accounts.gender;
+                      - var ativo   = accounts.active;
+                      - var dtcreate = accounts.createdAt;
+                      form.form-horizontal(action='/users/delete/'+uuid, method='post') 
+                        .form-group
+                          label.form-control-label(for='fullname') Código
+                          .controls
+                            .input-group
+                              input#userid.form-control(name='userid',size='16', type='text',  value=userid, readonly=true)
+                        .form-group
+                          label.form-control-label(for='lbluser') Usuário
+                          .controls
+                            .input-group
+                              input#username.form-control(name='username',size='16', type='text',  value=usernm, readonly=true)
+                        .form-group
+                          label.form-control-label(for='lblfullname') Nome
+                          .controls
+                            .input-group
+                              input#fullname.form-control(name='fullname',size='16', type='text',  value=fullnm, readonly=true)
+                        .form-group
+                          label.form-control-label(for='email') e-mail
+                          .controls
+                            .input-group
+                              input#email.form-control(name='email',size='100', type='text',  value=uemail, readonly=true)                                                           
+                        .form-group
+                          label.form-control-label(for='password') Senha
+                          .controls
+                            .input-group
+                              input#password.form-control(name='password',size='16', type='password',  value=pwd, readonly=true) 
+                        .form-group
+                          label.form-control-label(for='genderMF') Genero
+                          .controls
+                            .input-group
+                              input#gender.form-control(name='gender',size='100', type='text',  value=ugender, readonly=true)                       
+                        .form-group
+                          label.form-control-label(for='lbltype') Tipo
+                          .controls
+                            .input-group
+                              select#role.form-control-sm(name='role', disabled=true)
+                                option(value='Manutenção', selected='Manutenção'==utype) Manutenção
+                                option(value='Visualização',selected='Visualização'==utype) Visualização       
+                                option(value='Administração',selected='Administração'==utype) Administração                                                                                                                   
+                        .form-group
+                          label.col-md-3.form-control-label(for='activedYN') Ativo?
+                          .controls
+                            .col-md-9
+                              select#active.form-control-sm(name='active', disabled=true)
+                                option(value='true', selected=ativo == true) Sim
+                                option(value='false', selected=ativo == false) Não
+                        .form-group
+                          label.form-control-label(for='createdAt') Criado em
+                          .controls
+                            .input-group
+                              input#createdAt.form-control(size='16', type='text', readonly=true, value=formatDate(dtcreate))                                                                                                              
+                        .form-actions                          
+                          a(href='/users/edit/'+uuid) 
+                            button.btn.btn-sm.btn-success(type='button')
+                              i.fa.fa-edit
+                              |  Editar   
+                            span    
+                          button.btn.btn-sm.btn-primary(type='submit')
+                            i.fa.fa-delicious
+                            |  Deletar   
+                          span         
+                          a(href='/users')                
+                            button.btn.btn-sm.btn-info(type='button')
+                              i.fa.fa-backward
+                              |  Voltar a lista                               

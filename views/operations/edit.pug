@@ -1,0 +1,208 @@
+extends ../default
+
+block content
+  main.main
+        script.
+          $( function() {
+            $( "#dtinvoice" ).datepicker({
+              showWeek: true,
+              showButtonPanel: true,
+              changeMonth: true,
+              changeYear: true,
+              showOn: "button",
+              buttonImage: "/images/calendar.png",
+              buttonImageOnly: true,
+              dateFormat: 'dd/mm/yy',
+              locale:'pt-BR',
+              firstDay: 1
+            });
+
+            $( "#dtdeparture" ).datepicker({
+              showWeek: true,
+              showButtonPanel: true,
+              changeMonth: true,
+              changeYear: true,
+              showOn: "button",
+              buttonImage: "/images/calendar.png",
+              buttonImageOnly: true,
+              dateFormat: 'dd/mm/yy',
+              locale:'pt-BR',
+              firstDay: 1
+            });
+
+            $( "#dtarrival" ).datepicker({
+              showWeek: true,
+              showButtonPanel: true,
+              changeMonth: true,
+              changeYear: true,
+              showOn: "button",
+              buttonImage: "/images/calendar.png",
+              buttonImageOnly: true,
+              dateFormat: 'dd/mm/yy',
+              locale:'pt-BR',
+              firstDay: 1
+            });
+
+            $( "#dtdemurrage" ).datepicker({
+              showWeek: true,
+              showButtonPanel: true,
+              changeMonth: true,
+              changeYear: true,
+              showOn: "button",
+              buttonImage: "/images/calendar.png",
+              buttonImageOnly: true,
+              dateFormat: 'dd/mm/yy',
+              locale:'pt-BR',
+              firstDay: 1
+            });
+
+            $( "#dtsalesorder" ).datepicker({
+              showWeek: true,
+              showButtonPanel: true,
+              changeMonth: true,
+              changeYear: true,
+              showOn: "button",
+              buttonImage: "/images/calendar.png",
+              buttonImageOnly: true,
+              dateFormat: 'dd/mm/yy',
+              locale:'pt-BR',
+              firstDay: 1
+            });
+          });
+        // Breadcrumb
+        ol.breadcrumb
+          li.breadcrumb-item Transações
+          li.breadcrumb-item Registro
+          li.breadcrumb-item Operações
+          li.breadcrumb-item.active Detalhes
+        .container-fluid
+          .animated.fadeIn
+            .row
+              .col-md-12
+                  .card
+                    .card-header
+                      i.fa.fa-edit
+                      |  Operações - Detalhes
+                      - var docid       = operations.id;
+                      - var codope      = operations.operation;
+                      - var desoper     = operations.description;
+                      - var inv         = operations.invoice;
+                      - var cntr        = operations.cntr;
+                      - var dtinv       = operations.dtinvoice;
+                      - var dtdepr      = operations.dtdeparture;
+                      - var dtarriv     = operations.dtarrival;
+                      - var dtdemur     = operations.dtdemurrage;
+                      - var dtso        = operations.dtsalesorder;
+                      - var suppl       = operations.supplier;
+                      - var custom      = operations.customer;
+                      - var stss        = operations.status;
+                      - var di          = operations.importdeclation;
+                      - var ativo       = operations.active;
+                      - var dtcriacao   = operations.createdAt;
+                    .card-body   
+                      != messages()  
+                      form.form-horizontal(action='/operations/update/' + docid, method='post')                         
+                        .form-group
+                          label.form-control-label(for='lbloper') Operação
+                          .controls
+                            .input-group
+                              input#operation.form-control(name='operation',size='16', type='text', value=codope, readonly=true)
+                        .form-group
+                          label.form-control-label(for='suppliername') Descrição de Medida
+                          .controls
+                            .input-group
+                              input#description.form-control(name='description',size='16', type='text', value=desoper, readonly=false)
+                        .form-group
+                          label.form-control-label(for='lblinvo') Invoice
+                          .controls
+                            .input-group
+                              input#invoice.form-control(name='invoice',size='16', type='text', value=inv, readonly=false)  
+                        .form-group
+                          label.form-control-label(for='lblcntr') Container
+                          .controls
+                            .input-group
+                              input#cntr.form-control(name='cntr',size='16', type='text', value=cntr, readonly=false)           
+                        .form-group
+                          label.form-control-label(for='lbldtinvo') Data Invoice
+                          .controls
+                            .input-group                                                                                     
+                              input#dtinvoice(type='text', name='dtinvoice', value=dtinv, readonly=false)
+                        .form-group
+                          label.form-control-label(for='lbldtinvo') Data Saída
+                          .controls
+                            .input-group                                                                                     
+                              input#dtdeparture(type='text', name='dtdeparture', value=dtdepr, readonly=false)   
+                        .form-group
+                          label.form-control-label(for='lbldtinvo') Data Chegada
+                          .controls
+                            .input-group                                                                                     
+                              input#dtarrival(type='text', name='dtarrival', value=dtarriv, readonly=false)   
+                        .form-group
+                          label.form-control-label(for='lbldtinvo') Data Demurrage
+                          .controls
+                            .input-group                                                                                     
+                              input#dtdemurrage(type='text', name='dtdemurrage', value=dtdemur, readonly=false)  
+                        .form-group
+                          label.form-control-label(for='lbldtinvo') Data PV
+                          .controls
+                            .input-group                                                                                     
+                              input#dtsalesorder(type='text', name='dtsalesorder', value=dtso, readonly=false)                
+                        .form-group
+                          label.form-control-label(for='supplnm') Fornecedor
+                          .controls
+                            .input-group
+                              select#select.form-control-sm(name='supplier', disabled=false)
+                               option(value='') Selecione um Fornecedor 
+                               if (suppliers)
+                                each namesupplier in suppliers
+                                  - var isupll = namesupplier.id;
+                                  - var nsuppl = namesupplier.description;
+                                  option(value=isupll, selected=isupll==suppl) #{nsuppl}  
+                        .form-group
+                          label.form-control-label(for='customnm') Cliente
+                          .controls
+                            .input-group
+                              select#select.form-control-sm(name='customer', disabled=false)
+                               option(value='') Selecione um Cliente 
+                               if (customers)
+                                each namecustomer in customers
+                                  - var icust = namecustomer.id;
+                                  - var ncust = namecustomer.description;
+                                  option(value=icust, selected=icust==custom) #{ncust}  
+                        .form-group
+                          label.form-control-label(for='statusnm') Status
+                          .controls
+                            .input-group
+                              select#select.form-control-sm(name='status', disabled=false)
+                               option(value='') Selecione um Status 
+                               if (statuss)
+                                each namestatus in statuss
+                                  - var istatus = namestatus.id;
+                                  - var nstatus = namestatus.description;
+                                  option(value=istatus, selected=istatus==stss) #{nstatus}                  
+                        .form-group
+                          label.form-control-label(for='suppliername') D.I.
+                          .controls
+                            .input-group
+                              input#importdeclation.form-control(name='importdeclation',size='16', type='text', value=di,  readonly=false)                                                    
+                        .form-group
+                          label.form-control-label(for='activedYN') Ativo?
+                          .controls
+                            .input-group
+                              select#select.form-control-sm(name='active')
+                                option(value='true', selected=ativo==true) Sim
+                                option(value='false', selected=ativo==false) Não 
+                        .form-group
+                          label.form-control-label(for='createdAt') Criado em
+                          .controls
+                            .input-group
+                              input#createdAt.form-control(size='16', type='text', readonly=true, value=formatDate(dtcriacao))                                                                                                           
+                        .form-actions
+                          button.btn.btn-sm.btn-success(type='submit')
+                            i.fa.fa-edit
+                            |  Atualizar   
+                          span     
+                          a(href='/operations/show/' + docid)                                           
+                            button.btn.btn-sm.btn-danger(type='button')
+                              i.fa.fa-ban
+                              |  Cancelar                               

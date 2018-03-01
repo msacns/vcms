@@ -1,0 +1,52 @@
+extends ../default
+
+block content
+  main.main
+        // Breadcrumb
+        ol.breadcrumb
+          li.breadcrumb-item Administração
+          li.breadcrumb-item Configurações
+          li.breadcrumb-item.active Status
+        .container-fluid
+          .animated.fadeIn
+            .row
+              .col-md-12
+                  .card
+                    .card-header
+                      i.fa.fa-align-justify
+                      |  Status
+                    .card-body   
+                      != messages()                        
+                      table.table.table-striped
+                        thead
+                          tr
+                            th Código
+                            th Status
+                            th Contato  
+                            th Ativo
+                            th Ações
+                        tbody      
+                          if(list)                                                                                                                               
+                            each statu in list  
+                              - var  lnid = statu.id;                      
+                              tr
+                                td #{statu.status}
+                                td #{statu.description} 
+                                td #{statu.contact} 
+                                td #{ativo = statu.active==true?'Sim':'Não' }                            
+                                td 
+                                  .form-group
+                                    form.form-horizontal(action='/statuses/delete/'+lnid, method='post')                                      
+                                      a(href='/statuses/edit/'+lnid)
+                                        button(type='button', style='background-color:transparent; border-color:transparent;')
+                                          i.fa.fa-edit                                                                                                              
+                                      span                                      
+                                      button(type='submit', style='background-color:transparent; border-color:transparent;')
+                                        i.fa.fa-remove
+                        if (pages > 1)
+                          ul.pagination
+                            != createPagination(pages, page)  
+                      a(href='/statuses/new', target='_top')    
+                       button.btn.btn-primary.btn-sm(type='button') Novo
+                      a(href='/statuses/exportxls', target='_self')    
+                       button.btn.btn-success.btn-sm(type='button') Excel 

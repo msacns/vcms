@@ -1,0 +1,17 @@
+extends ../default
+
+block head
+  link(href='https://cdnjs.cloudflare.com/ajax/libs/pivottable/2.19.0/pivot.min.css', rel='stylesheet')
+
+block content
+  main.main        
+        // Breadcrumb
+        ol.breadcrumb
+          li.breadcrumb-item Transações
+          li.breadcrumb-item Relatórios
+          li.breadcrumb-item.active Pivot
+        .container-fluid                    
+          div#output(style='height:800px;')                    
+block scripts                  
+  script(src='https://cdnjs.cloudflare.com/ajax/libs/pivottable/2.19.0/pivot.min.js')
+  script(src='/javascripts/status.js')                       

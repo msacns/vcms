@@ -1,0 +1,18 @@
+extends ../default
+
+block head
+  link(href='https://cdnjs.cloudflare.com/ajax/libs/jsgrid/1.5.1/jsgrid.min.css', rel='stylesheet')
+  link(href='https://cdnjs.cloudflare.com/ajax/libs/jsgrid/1.5.1/jsgrid-theme.min.css', rel='stylesheet')
+
+block content
+  main.main        
+        // Breadcrumb
+        ol.breadcrumb
+          li.breadcrumb-item Transações
+          li.breadcrumb-item Relatórios
+          li.breadcrumb-item.active Operações
+        .container-fluid                    
+          div#jsGrid(style='height:800px;')                    
+block scripts                  
+  script(src='https://cdnjs.cloudflare.com/ajax/libs/jsgrid/1.5.1/jsgrid.min.js')
+  script(src='/javascripts/operations.js')                       

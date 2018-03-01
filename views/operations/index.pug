@@ -1,0 +1,61 @@
+extends ../default
+
+block content
+  main.main
+        // Breadcrumb
+        ol.breadcrumb
+          li.breadcrumb-item Transações
+          li.breadcrumb-item Registro
+          li.breadcrumb-item.active Operações
+        .container-fluid
+          .animated.fadeIn
+            .row
+              .col-md-12
+                  .card
+                    .card-header
+                      i.fa.fa-align-justify
+                      |  Operações
+                    .card-body   
+                      != messages()                        
+                      table.table.table-striped
+                        thead
+                          tr
+                            th Código
+                            th Medida
+                            th Invoice
+                            th Container
+                            th Fornecedor
+                            th Cliente  
+                            th Status
+                            th Ações
+                        tbody     
+                          if(list)                                                                                                                                
+                            each oper in list  
+                              - var  lnid  = oper.id;                      
+                              - var  suppl = oper.supplier.description;
+                              - var  cust  = oper.customer.description;
+                              - var  stss  = oper.status.description;
+                              tr
+                                td #{oper.operation}
+                                td #{oper.description.substr(0, 7) + '...'}                                                                
+                                td #{oper.invoice}
+                                td #{oper.cntr}
+                                td #{suppl}
+                                td #{cust} 
+                                td #{stss}                            
+                                td 
+                                  .form-group
+                                    form.form-horizontal(action='/operations/delete/'+lnid, method='post')                                      
+                                      a(href='/operations/edit/'+lnid)
+                                        button(type='button', style='background-color:transparent; border-color:transparent;')
+                                          i.fa.fa-edit                                                                                                              
+                                      span                                      
+                                      button(type='submit', style='background-color:transparent; border-color:transparent;')
+                                        i.fa.fa-remove
+                        if (pages > 1)
+                          ul.pagination
+                            != createPagination(pages, page)  
+                      a(href='/operations/new', target='_top')    
+                       button.btn.btn-primary.btn-sm(type='button') Novo
+                      a(href='/operations/exportxls', target='_self')    
+                       button.btn.btn-success.btn-sm(type='button') Excel 

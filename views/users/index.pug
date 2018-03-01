@@ -1,0 +1,56 @@
+extends ../default
+
+block content
+  main.main
+        // Breadcrumb
+        ol.breadcrumb
+          li.breadcrumb-item Administração
+          li.breadcrumb-item Configurações
+          li.breadcrumb-item.active Usuários
+        .container-fluid
+          .animated.fadeIn
+            .row
+              .col-md-12
+                  .card
+                    .card-header
+                      i.fa.fa-align-justify
+                      |  Usuários
+                    .card-body   
+                      != messages()                        
+                      table.table.table-striped
+                        thead
+                          tr
+                            th Código
+                            th Usuário
+                            th Nome
+                            th e-mail
+                            th Tipo
+                            th Ativo
+                            th Ações
+                        tbody      
+                           if(list)                                                                                                   
+                            each users in list   
+                              - var codu = users.id;                      
+                              tr
+                                td #{users.userid}
+                                td #{users.username}
+                                td #{users.fullname}                                                                
+                                td #{users.email}
+                                td #{users.role}   
+                                td #{ativo = users.active==true?'Sim':'Não' }                            
+                                td 
+                                  .form-group
+                                    form.form-horizontal(action='/users/delete/'+codu, method='post')                                      
+                                      a(href='/users/edit/'+codu)
+                                        button(type='button', style='background-color:transparent; border-color:transparent;')
+                                          i.fa.fa-edit                                                                                                              
+                                      span                                      
+                                      button(type='submit', style='background-color:transparent; border-color:transparent;')
+                                        i.fa.fa-remove
+                        if (pages > 1)
+                          ul.pagination
+                            != createPagination(pages, page)  
+                      a(href='/users/new', target='_top')    
+                       button.btn.btn-primary.btn-sm(type='button') Novo
+                      a(href='/users/exportxls', target='_self')    
+                       button.btn.btn-success.btn-sm(type='button') Excel  

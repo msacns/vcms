@@ -1,0 +1,27 @@
+extends default
+
+block head
+  link(href='https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.css', rel='stylesheet') 
+  
+block content  
+  main.main         
+        ol.breadcrumb
+          li.breadcrumb-item Home
+          li.breadcrumb-item
+            a(href='#') Admin
+          li.breadcrumb-item.active Dashboard
+        .container-fluid
+          .animated.fadeIn  
+            .rows
+              .card
+                  .card-header
+                    | Linha do Tempo : Clientes x Containers
+                  .card-body
+                    .chart-wrapper
+                      div#visualization
+                      div#loading(align='center') loading...
+                  .card-footer  
+block scripts                 
+  script(src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.1/moment-with-locales.min.js')
+  script(src='https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.js')
+  script(src='/javascripts/dashboard.js')                   
